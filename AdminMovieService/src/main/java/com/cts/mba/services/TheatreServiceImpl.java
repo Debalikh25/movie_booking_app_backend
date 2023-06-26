@@ -30,6 +30,7 @@ public class TheatreServiceImpl implements TheatreService {
 		if (t.isPresent()) {
 			Theatre theatre2 = t.get();
 			theatre2.setTheatreName(theatre.getTheatreName());
+			theatre2.setTotalSeats(theatre.getTotalSeats());
 			return this.repo.saveAndFlush(theatre2);
 		}
 		throw new TheatreNotFoundException();

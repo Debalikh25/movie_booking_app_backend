@@ -59,7 +59,7 @@ public class MovieController {
 	@Autowired
 	private FeignUtil util;
 
-	// Kafka Producer
+//	 Kafka Producer
 	@Autowired
 	private NotificationProducer producer;
 
@@ -70,7 +70,7 @@ public class MovieController {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<UserDTO> entity = new HttpEntity<UserDTO>(user, headers);
 		try {
-			String body = this.template.exchange("http://localhost:7001/api/v1/auth/" + roleId + "/register/",
+			String body = this.template.exchange("http://localhost:7001/api/v1/auth/"+roleId+"/register/",
 					HttpMethod.POST, entity, String.class).getBody();
 
 			this.message = gson.fromJson(body, Message.class);
@@ -150,7 +150,7 @@ public class MovieController {
 			return new ResponseEntity<Error>(error, HttpStatus.BAD_REQUEST);
 		}
 
-		producer.sendNotificationMovie(createdMovie);
+         	producer.sendNotificationMovie(createdMovie);
 
 		return new ResponseEntity<Movie>(createdMovie, HttpStatus.OK);
 	}
@@ -170,7 +170,7 @@ public class MovieController {
 		}
 
 		Movie updatedMovie = this.service.updateMovie(movie);
-		producer.sendNotificationMovie(updatedMovie);
+ 		producer.sendNotificationMovie(updatedMovie);
 		return new ResponseEntity<Movie>(updatedMovie, HttpStatus.OK);
 
 	}
